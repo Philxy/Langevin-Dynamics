@@ -4,17 +4,17 @@
 #include <random>
 #include <fstream>
 
-const double kBT = 5;
-const double friction = 0.1;
-const double m = 3;
-const double dt = 0.01;
+const double kBT = 1;
+const double friction = 1;
+const double m = 1;
+const double dt = 0.05;
 const double sqrtdt = sqrt(dt);
 const double tMax = 1000;
 const int nMax = int(tMax / dt);
-const int numParticles = 1000;
+const int numParticles = 10000;
 const int nrolls = 100000;
 const double mean = 0;
-const double stdDev = sqrt(2 * kBT * friction); 
+const double stdDev = 1;
 
 class Particle
 {
@@ -23,14 +23,15 @@ public:
   double vx = 0, vy = 0;
 
   std::random_device rd{};
+  
   // std::mt19937 generator{rd()};
   std::default_random_engine generator{rd()};
   std::normal_distribution<double> distribution;
 
   void update()
   {
-    double rndx =  distribution(generator);
-    double rndy = distribution(generator);
+    double rndx = sqrt(2 * kBT * friction) * distribution(generator);
+    double rndy = sqrt(2 * kBT * friction) * distribution(generator);
 
     vx += (-friction * vx * dt + sqrtdt * rndx) / m;
     vy += (-friction * vy * dt + sqrtdt * rndy) / m;
@@ -48,12 +49,15 @@ int main()
   {
     Particle p;
 
-    // std::ofstream trajectoryFile("trajectories/trajectory" + std::to_string(partCount) + ".csv");
+    //std::ofstream trajectoryFile("trajectories/trajectory" + std::to_string(partCount) + ".csv");
     // std::ofstream MSDFile("MSD/MSD" + std::to_string(partCount) + ".csv");
+    //std::ofstream MSDsFile("MSDs/MSD" + std::to_string(partCount) + ".csv");
+
 
     for (int n = 0; n < nMax; n++)
     {
-      // trajectoryFile << p.x << "," << p.y << "," << p.vx << "," << p.vy << "\n";
+      //trajectoryFile << n*dt << "," << p.x << "," << p.y << "," << p.vx << "," << p.vy << "\n";
+      //MSDsFile << n*dt << "," << p.x * p.x + p.y * p.y << "\n";
       ensembleMSD[n] += (p.x * p.x + p.y * p.y);
       p.update();
     }
