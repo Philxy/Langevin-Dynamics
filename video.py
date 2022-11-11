@@ -34,7 +34,6 @@ for i, count in enumerate(range(0, len(x), 200)):
 
 
 
-os.system("ffmpeg -r 20 -i FramesMSD/%01d.png -vcodec mpeg4 -y -vb 40M MSD_averaging.mp4")
 
 
 

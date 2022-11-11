@@ -9,7 +9,7 @@ const double friction = 1;
 const double m = 1;
 const double dt = 0.05;
 const double sqrtdt = sqrt(dt);
-const double tMax = 1000;
+const double tMax = 10000;
 const int nMax = int(tMax / dt);
 const int numParticles = 10000;
 const int nrolls = 100000;
@@ -33,10 +33,13 @@ public:
     double rndx = sqrt(2 * kBT * friction) * distribution(generator);
     double rndy = sqrt(2 * kBT * friction) * distribution(generator);
 
+    double vxp = vx;
+    double vyp = vy;
+
     vx += (-friction * vx * dt + sqrtdt * rndx) / m;
     vy += (-friction * vy * dt + sqrtdt * rndy) / m;
-    x += vx * dt;
-    y += vy * dt;
+    x += (vx+vxp)/2 * dt;
+    y += (vy+vyp)/2 * dt;
   }
 };
 
