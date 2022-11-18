@@ -27,7 +27,7 @@ friction = 1.0
 m = 1.0
 
 #plt.plot(time, [2.0 * kBT * t*t / m for t in time], label='Theory')
-plt.plot(time, [4.0 * kBT / friction * t for t in time], label=r'$\langle \Delta\mathbf{r}(t)^2\rangle = 4 k_B T t / \lambda$', linestyle=':')
+plt.plot(time, [2.0 * kBT / friction * t for t in time], label=r'$\langle \Delta\mathbf{r}(t)^2\rangle = 2 k_B T t / \lambda$', linestyle=':')
 
 plt.legend()
 plt.tight_layout()
