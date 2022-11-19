@@ -6,11 +6,6 @@ import os
 import matplotlib.collections as mcoll
 import matplotlib.path as mpath
 
-
-
-
-
-
 directory = 'trajectories/'
 
 
@@ -32,26 +27,21 @@ for i, filename in enumerate(os.listdir(directory)):
         xPositions.append(float(row[1]))
         yPositions.append(float(row[2]))
 
-    if i < 20:
-        ax1.plot(time, xPositions)
-    if i == 3:
-        ax2.scatter(xPositions[:20000], yPositions[:20000],c=range(20000),linewidths=0,
-           marker='o', s=3, cmap=plt.cm.viridis)
 
+    ax1.plot(time, xPositions)
+    ax2.plot(xPositions,yPositions)
 
-
-        
 
 ax1.set_xlabel('Zeit $t$')
 ax1.set_ylabel(r'$ x(t)-x(0)$')
 ax2.set_ylabel('y')
 ax2.set_xlabel('x')
-ax1.set_ylim(-370,370)
+#ax1.set_ylim(-370,370)
 ax1.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
 
 
 plt.tight_layout()
-plt.savefig('Figures/exemplary_traj4_t_0.05.pdf')
+plt.savefig('Figures/periodic.pdf')
 plt.show()
 
 
