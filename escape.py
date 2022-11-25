@@ -92,7 +92,7 @@ ax1.scatter(xdata,ydata)
 ax2.scatter(np.reciprocal(xdata),ydata)
 
 def func(kBT):
-    return  np.exp(np.reciprocal(kBT) * 1/6.0) * 10
+    return  np.exp(np.reciprocal(kBT) * 1/6.0) * 2*np.pi*2
 
 #popt, pcov = curve_fit(func, xdata, ydata)
 
