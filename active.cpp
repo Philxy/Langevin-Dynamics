@@ -5,11 +5,11 @@
 #include <fstream>
 
 double kBT = .1;
-const double dt = 0.005;
+const double dt = 0.0001;
 const double sqrtdt = sqrt(dt);
-const double tMax = 100;
+const double tMax = 10;
 const int nMax = int(tMax / dt);
-const int numParticles = 1000;
+const int numParticles = 4;
 const int nrolls = 100000;
 const double mean = 0;
 const double stdDev = 1;
@@ -18,7 +18,7 @@ const double eta = 1.0087;
 const double a = 0.1;
 const double D_R = kBT/(8*3.141*a*a*a*eta);
 const double D_T = kBT/(6*3.141*eta*a);
-const double v0 = 10;
+const double v0 = 0;
 
 class Particle
 {
@@ -56,21 +56,27 @@ public:
 int main()
 {
 
+  std::cout << v0/sqrt(2* D_T ) << std::endl;
   double ensembleMSD[nMax] = {0};
 
   for (int partCount = 0; partCount < numParticles; partCount++)
   {
+
+    std::ofstream trajectoryFile("ActiveTraj/" + std::to_string(partCount) + ".csv");
+
     Particle p;
 
     for (int n = 0; n < nMax; n++)
     {
-      // trajectoryFile << n * dt << "," << p.x << "," << p.y << "," << p.vx << "," << p.vy << "," << p.vz << "\n";
+      
+
+      trajectoryFile << n * dt << "," << p.x << "," << p.y << "," << p.vx << "," << p.vy << "\n";
 
       ensembleMSD[n] += (p.x * p.x + p.y * p.y);
       p.update();
     }
   }
-
+  return 0;
   std::ofstream MSDFile("MSDs/" + std::to_string(v0) + ".csv");
 
   for (int i = 0; i < nMax; i++)
